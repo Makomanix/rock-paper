@@ -16,33 +16,30 @@ function getComputerChoice() {
 }
 
 function round(playerSelection, computerSelection) {
-    // if (playerSelection != "rock" || playerSelection != "paper" || playerSelection != "scissors") {
-    //     getPlayerChoice();
-    // } else {
-        let userSelection = playerSelection.toLowerCase();
-        let result;
-        console.log(computerSelection)
-        if (userSelection == computerSelection ) {
-            result = "It's a Tie";
-        } else if (userSelection == "rock") {
-            if (computerSelection == "scissors") {
-                result = "Winner! You snapped those snips"
-            } else {
-                result = "You Lose! AI Overlord Wins!"
-            }
-        } else if (userSelection == "paper") {
-            if (computerSelection == "rock") {
-                result = "Winner! You Buried that Rock!"
-            } else {
-                result = "You Lose! Like a virgin, hey!"
-            }
-        } else if (userSelection == "scissors") {
-            if (computerSelection == "paper") {
-                result = "Winner! Sharpest Tool in the Shed!" 
-            } 
+    let userSelection = playerSelection.toLowerCase();
+    let result;
+    console.log(computerSelection)
+    if (userSelection == computerSelection ) {
+        result = "It's a Tie";
+    } else if (userSelection == "rock") {
+        if (computerSelection == "scissors") {
+            result = "Winner! You snapped those snips"
+        } else {
+            result = "You Lose! AI Overlord Wins!"
         }
-        score(result);
+    } else if (userSelection == "paper") {
+        if (computerSelection == "rock") {
+            result = "Winner! You Buried that Rock!"
+        } else {
+            result = "You Lose! Like a virgin, hey!"
+        }
+    } else if (userSelection == "scissors") {
+        if (computerSelection == "paper") {
+            result = "Winner! Sharpest Tool in the Shed!" 
+        } 
     }
+    score(result);
+}
 
 
 console.log(round(playerSelection, computerSelection));
