@@ -1,14 +1,13 @@
 let playerScore = 0;
 let computerScore = 0;
-let games = 0;
+let rounds = 0;
 let playerSelection = prompt("Play Rock, Paper, Scissors! Pick your weapon!");
 
 const computerSelection = getComputerChoice();
 
-// function getPlayerChoice() {
-//     playerSelection = prompt("Incorrect entry: Please type either rock, paper, or scissors");
-//     round(playerSelection, computerSelection)
-// }
+function getPlayerChoice() {
+    playerSelection = prompt("Play Rock, Paper, Scissors! Pick your weapon!");
+}
 
 function getComputerChoice() {
     let hand = ["rock", "paper", "scissors"];
@@ -38,16 +37,36 @@ function round(playerSelection, computerSelection) {
             result = "Winner! Sharpest Tool in the Shed!" 
         } 
     }
+    alert(result);
     score(result);
 }
 
 
-console.log(round(playerSelection, computerSelection));
 
 function score(result){
     if (result == "It's a Tie") {
-        alert(`No points awarded. Lets play round ${+playerScore} + ${+computerScore} + 1`)
+        ++rounds;
+        alert(`No points awarded. Lets play round ${rounds + 1}`)
+        getPlayerChoice()
+        getComputerChoice()
+        round(playerSelection, getComputerChoice())
     } else if (result.includes("Winner")) {
-        alert
+        ++playerScore;
+        ++rounds;
+        alert(`You scored 1 point, you have ${playerScore} and the AI has ${computerScore}`)
+        alert(`Lets play round ${rounds + 1}`)
+        getPlayerChoice();
+        getComputerChoice();
+        round(playerSelection, getComputerChoice());
+    } else {
+        ++computerScore;
+        ++rounds;
+        alert(`The AI scored 1 point, you have ${playerScore} and the AI has ${computerScore}`);
+        alert(`Lets play round ${rounds + 1}`);
+        getPlayerChoice();
+        getComputerChoice();
+        round(playerSelection, getComputerChoice());
     }
 };
+
+console.log(round(playerSelection, computerSelection));
