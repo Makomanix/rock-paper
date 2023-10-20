@@ -2,21 +2,16 @@ let playerScore = 0;
 let computerScore = 0;
 let rounds = 0;
 let playerSelection = prompt("Play Rock, Paper, Scissors! Pick your weapon!");
-
 const computerSelection = getComputerChoice();
-
-// function toPlay() {
-//     (rounds >= 5) ? alert : alert
-// }
 
 function getPlayerChoice() {
     playerSelection = prompt("Play Rock, Paper, Scissors! Pick your weapon!");
-}
+};
 
 function getComputerChoice() {
     let hand = ["rock", "paper", "scissors"];
     return hand[Math.floor((Math.random() * hand.length))];
-}
+};
 
 function gameOver() {
     if (playerScore == computerScore) {
@@ -25,17 +20,17 @@ function gameOver() {
     } else {
     (playerScore > computerScore ? playerWins() : computerWins());
     }
-}
+};
 
 function playerWins() {
     alert("Congratulations! You Win the match");
     // alert("Play Again?", round(playerSelection, computerSelection));
-}
+};
 
 function computerWins() {
     alert("WOMP WOMP! You lost the match");
     // alert("Play Again?", round(playerSelection, computerSelection));
-}
+};
 
 function round(playerSelection, computerSelection) {
     let userSelection = playerSelection.toLowerCase();
@@ -62,7 +57,7 @@ function round(playerSelection, computerSelection) {
     }
     alert(result);
     score(result);
-}
+};
 
 
 
