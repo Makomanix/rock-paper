@@ -4,6 +4,10 @@ let computerScore = 0;
 
 let rounds = 0;
 
+let message = document.querySelector(".message");
+
+let rdn = document.querySelector('.rnd')
+
 let playerSelection;
 
 let computerSelection;
@@ -17,8 +21,6 @@ buttons.forEach((button) => {
         playerSelection = e.target.value;
 
         computerSelection = getComputerChoice();
-
-        console.log(playerSelection);
 
         round(playerSelection, computerSelection);
     })
@@ -50,63 +52,71 @@ function computerWins() {
 };
 
 function round(playerSelection, computerSelection) {
-    let userSelection = playerSelection.toLowerCase();
-    let result;
-    console.log(computerSelection)
-    if (userSelection == computerSelection ) {
-        result = "It's a Tie";
+
+    let userSelection = playerSelection.toLowerCase(); 
+
+    let result = document.createElement('div')
+
+    if (userSelection == computerSelection ) {    
+        result.textContent = "It's a Tie";
+
     } else if (userSelection == "rock") {
         if (computerSelection == "scissors") {
-            result = "Winner! You snapped those snips"
+            result.textContent = "Winner! You snapped those snips";
+
         } else {
-            result = "You Lose! AI Overlord Wins!"
+            result.textContent = "You Lose! AI Overlord Wins!"
         }
+
     } else if (userSelection == "paper") {
         if (computerSelection == "rock") {
-            result = "Winner! You Buried that Rock!"
+            result.textContent = "Winner! You Buried that Rock!"
+
         } else {
-            result = "You Lose! Like a virgin, hey!"
+            result.textContent = "You Lose! Like a surgeon, hey!"
         }
+
     } else if (userSelection == "scissors") {
         if (computerSelection == "paper") {
-            result = "Winner! Sharpest Tool in the Shed!" 
+            result.textContent = "Winner! Sharpest Tool in the Shed!" 
         } 
     }
-    alert(result);
+    alert(result.textContent);
     score(result);
 };
 
 
 
 function score(result){
-    if (result == "It's a Tie") {
+    if (result.textContent == "It's a Tie") {
         ++rounds; 
         alert(`No points awarded. you have ${playerScore} points and the AI has ${computerScore} points.`);
         if (rounds >= 5) { 
             gameOver();
         } else {
             alert(`Lets play round ${rounds + 1}`)
-            // getComputerChoice();
         };
-    } else if (result.includes("Winner")) {
+    } else if (result.textContent.includes("Winner")) {
         ++playerScore;
         ++rounds;
-        alert(`You scored 1 point, you have ${playerScore} points and the AI has ${computerScore} points`);
-        if (rounds >= 5) { 
-            gameOver();
+        alert(
+        `You scored 1 point, you have ${playerScore} points and the AI has ${computerScore} points`
+        );
+        if (rounds >= 5) {
+        gameOver();
         } else {
-            alert(`Lets play round ${rounds + 1}`);
-            // getComputerChoice();
-        };
+        alert(`Lets play round ${rounds + 1}`);
+        }
     } else {
         ++computerScore;
         ++rounds;
-        alert(`The AI scored 1 point, you have ${playerScore} points and the AI has ${computerScore} points`);
+        alert(
+        `The AI scored 1 point, you have ${playerScore} points and the AI has ${computerScore} points`
+        );
         if (rounds >= 5) {
-            gameOver();
+        gameOver();
         } else {
-            alert(`Lets play round ${rounds + 1}`);
-            // getComputerChoice();
+        alert(`Lets play round ${rounds + 1}`);
         }
     }
 };
