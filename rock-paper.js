@@ -1,12 +1,29 @@
 let playerScore = 0;
-let computerScore = 0;
-let rounds = 0;
-let playerSelection = prompt("Play Rock, Paper, Scissors! Pick your weapon!");
-const computerSelection = getComputerChoice();
 
-function getPlayerChoice() {
-    playerSelection = prompt("Play Rock, Paper, Scissors! Pick your weapon!");
-};
+let computerScore = 0;
+
+let rounds = 0;
+
+let playerSelection;
+
+let computerSelection;
+
+
+let buttons = document.querySelectorAll(".btn");
+
+buttons.forEach((button) => {
+    button.addEventListener('click', function (e) {
+
+        playerSelection = e.target.value;
+
+        computerSelection = getComputerChoice();
+
+        console.log(playerSelection);
+
+        round(playerSelection, computerSelection);
+    })
+});
+
 
 function getComputerChoice() {
     let hand = ["rock", "paper", "scissors"];
@@ -69,9 +86,7 @@ function score(result){
             gameOver();
         } else {
             alert(`Lets play round ${rounds + 1}`)
-            getPlayerChoice();
-            getComputerChoice();
-            round(playerSelection, getComputerChoice());
+            // getComputerChoice();
         };
     } else if (result.includes("Winner")) {
         ++playerScore;
@@ -81,9 +96,7 @@ function score(result){
             gameOver();
         } else {
             alert(`Lets play round ${rounds + 1}`);
-            getPlayerChoice();
-            getComputerChoice();
-            round(playerSelection, getComputerChoice());
+            // getComputerChoice();
         };
     } else {
         ++computerScore;
@@ -93,11 +106,9 @@ function score(result){
             gameOver();
         } else {
             alert(`Lets play round ${rounds + 1}`);
-            getPlayerChoice();
-            getComputerChoice();
-            round(playerSelection, getComputerChoice());
+            // getComputerChoice();
         }
     }
 };
 
-round(playerSelection, computerSelection);
+// round(playerSelection, computerSelection);
