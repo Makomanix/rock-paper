@@ -1,31 +1,103 @@
-let playerScore = 0;
+let gameBoard = document.querySelector('.gameBoard');
 
-let computerScore = 0;
+let startBtn = document.createElement('button');
+startBtn.setAttribute('class', 'startBtn');
+startBtn.innerText = "Start Game";
+startBtn.addEventListener('click', startGame);
 
-let rounds = 0;
+let playBtn = document.createElement('button');
+playBtn.setAttribute('class', 'playBtn');
+playBtn.innerText = "Play Again";
+playBtn.addEventListener('click', startGame)
 
-let message = document.querySelector(".message");
+gameBoard.appendChild(startBtn);
 
-let rdn = document.querySelector('.rnd')
+let weapons;
+
+let playerScore;
+
+let computerScore;
+
+let rounds;
+
+let scoreboard = document.querySelector('.scoreboard');
+
+let rdn = document.querySelector('.rnd');
+
+let result = document.createElement('p');
+
+let message = document.createElement('p');
+
+let playScore = document.createElement("p");
+
+let computeScore = document.createElement("p");
 
 let playerSelection;
 
 let computerSelection;
 
 
-let buttons = document.querySelectorAll(".btn");
+let arena = document.querySelector('.arena')
 
-buttons.forEach((button) => {
-    button.addEventListener('click', function (e) {
+function startGame() {
 
-        playerSelection = e.target.value;
+    message.innerText = ''
+    playerScore = 0;
+    computerScore = 0;
+    rounds = 0;
 
-        computerSelection = getComputerChoice();
+    playScore.innerText = `Player Score: ${playerScore}`;
 
-        round(playerSelection, computerSelection);
-    })
-});
+    computeScore.innerText = `Computer Score: ${computerScore}`;
 
+    rdn.innerText = "Play Round 1";
+
+    scoreboard.appendChild(playScore);
+    scoreboard.appendChild(computeScore);
+
+    createWeapons();
+}
+
+
+function createWeapons() {
+    if (document.querySelector('.startBtn')){
+        gameBoard.removeChild(startBtn);
+    };
+
+    if (document.querySelector(".playBtn")) {
+        gameBoard.removeChild(playBtn);
+    };
+    
+    weapons = document.createElement('div');
+    weapons.textContent = "Select Your Weapon:";
+    
+    let rock = document.createElement('button');
+    rock.setAttribute('value', 'rock')
+    rock.innerText = "Rock";
+    rock.addEventListener('click', weaponClick )
+    
+    let paper = document.createElement('button');
+    paper.setAttribute("value", "paper");
+    paper.innerText = "Paper";
+    paper.addEventListener("click", weaponClick);
+    
+    let scissors = document.createElement('button');
+    scissors.setAttribute("value", "scissors");
+    scissors.innerText = 'Scissors';
+    scissors.addEventListener("click", weaponClick);
+    
+    weapons.append(rock, paper, scissors);
+    
+    gameBoard.appendChild(weapons)
+}
+
+function weaponClick(e) {
+    playerSelection = e.target.value;
+
+    computerSelection = getComputerChoice();
+
+    round(playerSelection, computerSelection);
+};
 
 function getComputerChoice() {
     let hand = ["rock", "paper", "scissors"];
@@ -34,28 +106,31 @@ function getComputerChoice() {
 
 function gameOver() {
     if (playerScore == computerScore) {
-        alert("The Match is a draw!")
-        // alert("Play Again?", round(playerSelection, computerSelection))
+        message.innerText = "The Match is a draw!";
     } else {
-    (playerScore > computerScore ? playerWins() : computerWins());
-    }
+        playerScore > computerScore ? playerWins() : computerWins();
+    };
+    rdn.textContent = "Match Complete";
+    gameBoard.removeChild(weapons);
+    gameBoard.appendChild(playBtn);
+    scoreboard.removeChild(playScore);
+    scoreboard.removeChild(computeScore);
+    // startGame();
 };
 
 function playerWins() {
-    alert("Congratulations! You Win the match");
-    // alert("Play Again?", round(playerSelection, computerSelection));
+    message.innerText = "Congratulations! You Win the match";
+    
 };
 
 function computerWins() {
-    alert("WOMP WOMP! You lost the match");
-    // alert("Play Again?", round(playerSelection, computerSelection));
+    message.innerText = "WOMP WOMP! You lost the match";
+    
 };
 
 function round(playerSelection, computerSelection) {
 
-    let userSelection = playerSelection.toLowerCase(); 
-
-    let result = document.createElement('div')
+    let userSelection = playerSelection.toLowerCase();
 
     if (userSelection == computerSelection ) {    
         result.textContent = "It's a Tie";
@@ -79,46 +154,45 @@ function round(playerSelection, computerSelection) {
     } else if (userSelection == "scissors") {
         if (computerSelection == "paper") {
             result.textContent = "Winner! Sharpest Tool in the Shed!" 
-        } 
-    }
-    alert(result.textContent);
+        } else {
+            result.textContent = "Your Scissors have been smashed"
+        }
+    };
+
+    message.innerText =
+        `You played ${playerSelection}.` +
+        "\n" + `The computer played ${computerSelection}.` +
+        "\n" + `${result.textContent}`; 
+
+    arena.prepend(message)
+    
     score(result);
 };
 
 
-
 function score(result){
     if (result.textContent == "It's a Tie") {
-        ++rounds; 
-        alert(`No points awarded. you have ${playerScore} points and the AI has ${computerScore} points.`);
+        ++rounds;
+        rdn.textContent = `Play Round ${rounds + 1}`;
         if (rounds >= 5) { 
             gameOver();
-        } else {
-            alert(`Lets play round ${rounds + 1}`)
         };
     } else if (result.textContent.includes("Winner")) {
         ++playerScore;
         ++rounds;
-        alert(
-        `You scored 1 point, you have ${playerScore} points and the AI has ${computerScore} points`
-        );
+        rdn.textContent = `Play Round ${rounds + 1}`;
+        playScore.textContent = `Player Score ${playerScore}`;
         if (rounds >= 5) {
-        gameOver();
-        } else {
-        alert(`Lets play round ${rounds + 1}`);
-        }
+            gameOver();
+        }; 
     } else {
         ++computerScore;
         ++rounds;
-        alert(
-        `The AI scored 1 point, you have ${playerScore} points and the AI has ${computerScore} points`
-        );
+        rdn.textContent = `Play Round ${rounds + 1}`;
+        computeScore.textContent = `Computer Score ${computerScore}`;
         if (rounds >= 5) {
-        gameOver();
-        } else {
-        alert(`Lets play round ${rounds + 1}`);
-        }
+            gameOver();
+        };
     }
 };
 
-// round(playerSelection, computerSelection);
