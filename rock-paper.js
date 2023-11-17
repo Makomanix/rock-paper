@@ -1,16 +1,3 @@
-let gameBoard = document.querySelector('.gameBoard');
-
-let startBtn = document.createElement('button');
-startBtn.setAttribute('class', 'startBtn');
-startBtn.innerText = "Start Game";
-startBtn.addEventListener('click', startGame);
-
-let playBtn = document.createElement('button');
-playBtn.setAttribute('class', 'playBtn');
-playBtn.innerText = "Play Again";
-playBtn.addEventListener('click', startGame)
-
-gameBoard.appendChild(startBtn);
 
 let weapons;
 
@@ -36,8 +23,21 @@ let playerSelection;
 
 let computerSelection;
 
+let arena = document.querySelector('.arena');
 
-let arena = document.querySelector('.arena')
+let gameBoard = document.querySelector('.gameBoard');
+
+let startBtn = document.createElement('button');
+startBtn.setAttribute('class', 'startBtn');
+startBtn.innerText = "Start Game";
+startBtn.addEventListener('click', startGame);
+
+let playBtn = document.createElement('button');
+playBtn.setAttribute('class', 'playBtn');
+playBtn.innerText = "Play Again";
+playBtn.addEventListener('click', startGame)
+
+gameBoard.appendChild(startBtn);
 
 function startGame() {
 
@@ -110,21 +110,18 @@ function gameOver() {
     } else {
         playerScore > computerScore ? playerWins() : computerWins();
     };
-    rdn.textContent = "Match Complete";
+    rdn.textContent = "Match Complete!";
     gameBoard.removeChild(weapons);
     gameBoard.appendChild(playBtn);
-    scoreboard.removeChild(playScore);
-    scoreboard.removeChild(computeScore);
-    // startGame();
 };
 
 function playerWins() {
-    message.innerText = "Congratulations! You Win the match";
+    message.innerText = "Congratulations, You Win!";
     
 };
 
 function computerWins() {
-    message.innerText = "WOMP WOMP! You lost the match";
+    message.innerText = "WOMP WOMP! You lose!";
     
 };
 
