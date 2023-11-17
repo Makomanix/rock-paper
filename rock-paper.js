@@ -156,7 +156,7 @@ function round(playerSelection, computerSelection) {
     } else if (userSelection == "rock") {
         if (computerSelection == "scissors") {
             result.textContent =
-                `You won Round ${rounds + 1}! You snapped those snips`;
+                `You Won Round ${rounds + 1}! You snapped those snips`;
 
         } else {
             result.textContent =
@@ -166,7 +166,7 @@ function round(playerSelection, computerSelection) {
     } else if (userSelection == "paper") {
         if (computerSelection == "rock") {
             result.textContent =
-                `You won Round ${rounds + 1}! You Buried that Rock!`;
+                `You Won Round ${rounds + 1}! You Buried that Rock!`;
 
         } else {
             result.textContent =
@@ -175,7 +175,7 @@ function round(playerSelection, computerSelection) {
 
     } else if (userSelection == "scissors") {
         if (computerSelection == "paper") {
-            result.textContent = `You won Round ${rounds + 1}!! Sharpest Tool in the Shed!`; 
+            result.textContent = `You Won Round ${rounds + 1}!! Sharpest Tool in the Shed!`; 
         } else {
             result.textContent = `You Lost Round ${rounds + 1}! Your Scissors have been smashed`;
         }
@@ -193,13 +193,13 @@ function round(playerSelection, computerSelection) {
 
 
 function updateScore(result){
-    if (result.textContent == "It's a Tie") {
+    if (result.textContent.includes("Tie")) {
         ++rounds;
         rdn.textContent = `Play Round ${rounds + 1}`;
         if (rounds >= 5) { 
             gameOver();
         };
-    } else if (result.textContent.includes("Winner")) {
+    } else if (result.textContent.includes("Won")) {
         ++playerScore;
         ++rounds;
         rdn.textContent = `Play Round ${rounds + 1}`;
