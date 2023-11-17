@@ -15,9 +15,9 @@ let result = document.createElement('p');
 
 let message = document.createElement('p');
 
-let playScore = document.createElement("p");
+let playScoreboard = document.createElement("p");
 
-let computeScore = document.createElement("p");
+let computeScoreboard = document.createElement("p");
 
 let playerSelection;
 
@@ -46,14 +46,14 @@ function startGame() {
     computerScore = 0;
     rounds = 0;
 
-    playScore.innerText = `Player Score: ${playerScore}`;
+    playScoreboard.innerText = `Player Score: ${playerScore}`;
 
-    computeScore.innerText = `Computer Score: ${computerScore}`;
+    computeScoreboard.innerText = `Computer Score: ${computerScore}`;
 
     rdn.innerText = "Play Round 1";
 
-    scoreboard.appendChild(playScore);
-    scoreboard.appendChild(computeScore);
+    scoreboard.appendChild(playScoreboard);
+    scoreboard.appendChild(computeScoreboard);
 
     createWeapons();
 }
@@ -106,7 +106,14 @@ function getComputerChoice() {
 
 function gameOver() {
     if (playerScore == computerScore) {
-        message.innerText = "The Match is a draw!";
+        message.innerText =
+        `You played ${playerSelection}.` +
+        "\n" +
+        `The computer played ${computerSelection}.` +
+        "\n" +
+        `${result.textContent}` +
+        "\n" +
+        "The Match is a draw!";
     } else {
         playerScore > computerScore ? playerWins() : computerWins();
     };
@@ -116,12 +123,26 @@ function gameOver() {
 };
 
 function playerWins() {
-    message.innerText = "Congratulations, You Win!";
+    message.innerText =
+        `You played ${playerSelection}.` +
+        "\n" +
+        `The computer played ${computerSelection}.` +
+        "\n" +
+        `${result.textContent}` + 
+        "\n" +
+        "Congratulations, You Win the match!";
     
 };
 
 function computerWins() {
-    message.innerText = "WOMP WOMP! You lose!";
+    message.innerText =
+        `You played ${playerSelection}.` +
+        "\n" +
+        `The computer played ${computerSelection}.` +
+        "\n" +
+        `${result.textContent}` +
+        "\n" +
+        "WOMP WOMP! You lost the match!";
     
 };
 
@@ -130,29 +151,33 @@ function round(playerSelection, computerSelection) {
     let userSelection = playerSelection.toLowerCase();
 
     if (userSelection == computerSelection ) {    
-        result.textContent = "It's a Tie";
+        result.textContent = `Round ${rounds + 1} is a Tie`;
 
     } else if (userSelection == "rock") {
         if (computerSelection == "scissors") {
-            result.textContent = "Winner! You snapped those snips";
+            result.textContent =
+                `You won Round ${rounds + 1}! You snapped those snips`;
 
         } else {
-            result.textContent = "You Lose! AI Overlord Wins!"
+            result.textContent =
+                `You Lost Round ${rounds + 1}! AI Overlord Wins!`;
         }
 
     } else if (userSelection == "paper") {
         if (computerSelection == "rock") {
-            result.textContent = "Winner! You Buried that Rock!"
+            result.textContent =
+                `You won Round ${rounds + 1}! You Buried that Rock!`;
 
         } else {
-            result.textContent = "You Lose! Like a surgeon, hey!"
+            result.textContent =
+                `You Lost Round ${rounds + 1}! Like a surgeon, hey!`;
         }
 
     } else if (userSelection == "scissors") {
         if (computerSelection == "paper") {
-            result.textContent = "Winner! Sharpest Tool in the Shed!" 
+            result.textContent = `You won Round ${rounds + 1}!! Sharpest Tool in the Shed!`; 
         } else {
-            result.textContent = "Your Scissors have been smashed"
+            result.textContent = `You Lost Round ${rounds + 1}! Your Scissors have been smashed`;
         }
     };
 
@@ -163,11 +188,11 @@ function round(playerSelection, computerSelection) {
 
     arena.prepend(message)
     
-    score(result);
+    updateScore(result);
 };
 
 
-function score(result){
+function updateScore(result){
     if (result.textContent == "It's a Tie") {
         ++rounds;
         rdn.textContent = `Play Round ${rounds + 1}`;
@@ -178,7 +203,7 @@ function score(result){
         ++playerScore;
         ++rounds;
         rdn.textContent = `Play Round ${rounds + 1}`;
-        playScore.textContent = `Player Score ${playerScore}`;
+        playScoreboard.textContent = `Player Score ${playerScore}`;
         if (rounds >= 5) {
             gameOver();
         }; 
@@ -186,7 +211,7 @@ function score(result){
         ++computerScore;
         ++rounds;
         rdn.textContent = `Play Round ${rounds + 1}`;
-        computeScore.textContent = `Computer Score ${computerScore}`;
+        computeScoreboard.textContent = `Computer Score ${computerScore}`;
         if (rounds >= 5) {
             gameOver();
         };
